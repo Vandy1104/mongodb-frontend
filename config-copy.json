@@ -1,5 +1,5 @@
 {
-  "MONGO_USER" : "vandy1104",
-  "MONGO_PASSWORD"  : "pratik@1104",
-  "MONGO_CLUSTER_NAME"  : "vandy1104-pey27"
+  "MONGO_USER" : "",
+  "MONGO_PASSWORD"  : "",
+  "MONGO_CLUSTER_NAME"  : "-pey27"
 }
