@@ -3,10 +3,19 @@ console.log(sessionStorage);
 let url;
 
 $(document).ready(function(){
+
+  if(sessionStorage['userName']) {
+    console.log('You are logged in');
+  } else {
+      console.log('Please log in');
+  }
+
   $('#heading').click(function(){
     // $(this).css('background', 'teal');
   });
 
+  $('#prodForm').hide();
+  $('#loginForm').hide();
   $('#adminPage').hide();
   $('#adminBtn').click(function(){
     $('#adminPage').show();
@@ -15,6 +24,15 @@ $(document).ready(function(){
   $('#homeBtn').click(function(){
     $('#adminPage').hide();
     $('#homePage').show();
+  });
+
+
+  $('#loginBtn').click(function(){
+      $('#loginForm').show();
+  });
+
+  $('#updateProductsBtn').click(function(){
+      $('#prodForm').show();
   });
 
 //get url and port from config.json
@@ -81,6 +99,37 @@ $(document).ready(function(){
       });//View Products Button
 
 
+      // Update products
+      $('#prodForm').submit(function(){
+        event.preventDefault();
+        let prodId = $('#prodId').val();
+        let prodName = $('#prodName').val();
+        let prodPrice = $('#prodPrice').val();
+        let uId = $('#uId').val();
+        console.log(prodId,prodName,prodPrice,uId);
+        $.ajax({
+          url :`${url}/updateProduct/${prodId}`,
+          type :'PATCH',
+          data:{
+            // _id : prodId,
+            name : prodName,
+            price: prodPrice,
+            userId: uId
+            },
+          success : function(data){
+            console.log(data);
+          },//success
+          error:function(){
+            console.log('error: cannot call api');
+          }//error
+
+
+        });//ajax
+
+      });//submit function for Update product
+
+
+
     $('#loginForm').submit(function(){
       event.preventDefault();
       let username = $('#username').val();
@@ -112,6 +161,13 @@ $(document).ready(function(){
 
       });//ajax
 
-    });//submit function
+    });//submit function for login form
+
+    //Logout starts here
+
+    $('#logoutBtn').click(function(){
+      sessionStorage.clear();
+      console.log(sessionStorage);
+    })
 
   });//document.ready
